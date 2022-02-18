@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import young.board.dto.BoardDto;
 import young.board.service.BoardService;
+import young.board.service.LikeService;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final LikeService likeService;
 
     //게시글 목록 출력
     //Model 객체를 통해 view에 데이터 전달
@@ -23,13 +25,13 @@ public class BoardController {
         List<BoardDto> boardList = boardService.getBoardlist();
 
         model.addAttribute("boardList", boardList);
-        return "board/list.html";
+        return "board/list";
     }
 
     //게시글 추가 페이지
     @GetMapping("/post")
     public String write() {
-        return "board/write.html";
+        return "board/write";
     }
 
     //게시글 추가 후 저장하고 초기 페이지로 돌아감
@@ -45,7 +47,7 @@ public class BoardController {
     public String detail(@PathVariable("num") Long num, Model model) {
         BoardDto boardDto = boardService.getPost(num);
         model.addAttribute("boardDto", boardDto);
-        return "board/detail.html";
+        return "board/detail";
     }
 
     //게시글 수정 페이지
@@ -55,7 +57,7 @@ public class BoardController {
     public String edit(@PathVariable("num") Long num, Model model) {
         BoardDto boardDto = boardService.getPost(num);
         model.addAttribute("boardDto", boardDto);
-        return "board/update.html";
+        return "board/update";
     }
 
     //게시글 수정 후 저장하고 초기 페이지로 돌아가기
@@ -79,6 +81,14 @@ public class BoardController {
         List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
         model.addAttribute("boardList", boardDtoList);
 
-        return "board/list.html";
+        return "board/list";
+    }
+
+    //좋아요 누르기
+    @GetMapping("/post/like/{num}")
+    public String like(@PathVariable Long num) {
+        likeService.addLike(num);
+
+        return "redirect:/post/" + num;
     }
 }

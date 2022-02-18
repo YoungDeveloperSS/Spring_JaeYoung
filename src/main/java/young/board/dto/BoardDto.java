@@ -3,6 +3,7 @@ package young.board.dto;
 
 import lombok.*;
 import young.board.domain.Board;
+import young.board.domain.Like;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,7 @@ public class BoardDto {
     private String content;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private Like like;
 
 
     // dto에서 필요한 엔티티를 빌더패턴을 통해 엔티티로 만듦
@@ -32,13 +34,14 @@ public class BoardDto {
 
     @Builder
     public BoardDto(Long id, String title, String content, String writer, LocalDateTime
-            createdDate, LocalDateTime modifiedDate) {
+            createdDate, LocalDateTime modifiedDate,Like like) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+        this.like =like;
 
     }
 }

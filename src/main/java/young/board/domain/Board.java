@@ -29,6 +29,9 @@ public class Board extends TimeEntity{
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @Embedded
+    private Like like;
+
 
     //==생성 메서드==//
     @Builder
@@ -37,7 +40,13 @@ public class Board extends TimeEntity{
         this.writer = writer;
         this.title = title;
         this.content = content;
+        this.like = new Like();
 
+    }
+
+    public Like addLike(){
+        like.addLike();
+        return like;
     }
 
 }
