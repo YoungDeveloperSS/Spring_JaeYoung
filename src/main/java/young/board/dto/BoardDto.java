@@ -1,6 +1,7 @@
 package young.board.dto;
 
 
+import io.swagger.annotations.ApiParam;
 import lombok.*;
 import young.board.domain.Board;
 import young.board.domain.Like;
@@ -12,12 +13,26 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class BoardDto {
+
+    @ApiParam(value = "게시물 ID",required = true)
     private Long id;
+
+    @ApiParam(value = "게시물 저자")
     private String writer;
+
+    @ApiParam(value = "게시물 제목")
     private String title;
+
+    @ApiParam(value = "게시물 내용")
     private String content;
+
+    @ApiParam(value = "게시물 생성일")
     private LocalDateTime createdDate;
+
+    @ApiParam(value = "게시물 수정일")
     private LocalDateTime modifiedDate;
+
+    @ApiParam(value = "게시물 좋아요")
     private Like like;
 
 
