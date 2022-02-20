@@ -4,17 +4,18 @@ package young.board.dto;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 import young.board.domain.Board;
+import young.board.domain.Comment;
 import young.board.domain.Like;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
-@Setter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardDto {
 
-    @ApiParam(value = "게시물 ID",required = true)
+    @ApiParam(value = "게시물 ID")
     private Long id;
 
     @ApiParam(value = "게시물 저자")
@@ -35,6 +36,8 @@ public class BoardDto {
     @ApiParam(value = "게시물 좋아요")
     private Like like;
 
+    private List<Comment> commentList;
+
 
     // dto에서 필요한 엔티티를 빌더패턴을 통해 엔티티로 만듦
     public Board toEntity(){
@@ -49,7 +52,7 @@ public class BoardDto {
 
     @Builder
     public BoardDto(Long id, String title, String content, String writer, LocalDateTime
-            createdDate, LocalDateTime modifiedDate,Like like) {
+            createdDate, LocalDateTime modifiedDate, Like like, List<Comment> commentList) {
         this.id = id;
         this.writer = writer;
         this.title = title;
@@ -57,6 +60,7 @@ public class BoardDto {
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
         this.like =like;
+        this.commentList = commentList;
 
     }
 }

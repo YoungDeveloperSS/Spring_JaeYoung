@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// Like 도 Board 안의 필드이므로 BoardService에서
 @AllArgsConstructor
 @Service
 public class BoardService {
@@ -88,6 +87,7 @@ public class BoardService {
                 .writer(board.getWriter())
                 .createdDate(board.getCreatedDate())
                 .like(board.getLike())
+                .commentList(board.getCommentList())
                 .build();
     }
 

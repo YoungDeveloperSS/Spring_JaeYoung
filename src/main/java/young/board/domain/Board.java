@@ -1,10 +1,12 @@
 package young.board.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,6 +17,7 @@ public class Board extends TimeEntity{
 
 
     @Id @GeneratedValue
+    @Column(name = "board_id")
     private Long id;
 
     @Column(length = 100, nullable = false)
@@ -32,6 +35,9 @@ public class Board extends TimeEntity{
     @Embedded
     private Like like;
 
+    @JsonIgnoreProperties({"board"})
+    @OneToMany(mappedBy = "board",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 
     //==생성 메서드==//
     @Builder
@@ -41,6 +47,7 @@ public class Board extends TimeEntity{
         this.title = title;
         this.content = content;
         this.like = new Like();
+        this.commentList = new ArrayList<>();
 
     }
 

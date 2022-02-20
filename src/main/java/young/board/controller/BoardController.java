@@ -52,7 +52,6 @@ public class BoardController {
 
     //게시글 수정 페이지
     //update.html을 반환해야 함
-    //게시글 추가
     @GetMapping("/post/edit/{num}")
     public String edit(@PathVariable("num") Long num, Model model) {
         BoardDto boardDto = boardService.getPost(num);
